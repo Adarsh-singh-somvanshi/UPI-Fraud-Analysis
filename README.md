@@ -26,15 +26,30 @@ The objective is to analyze UPI transaction data, identify potentially unusual t
 
 ---
 
-## 🏗️ Solution Architecture
+
+# 🏗️ Solution Architecture
+
+The project follows a multi-stage data analytics pipeline. The dataset is first cleaned using **IntelliClean**, then moved into the Azure cloud environment for ingestion, storage, processing, SQL analytics, and visualization.
 
 ```text
-                    UPI Transaction Data
+                 Raw / Synthetic UPI Dataset
                             │
                             ▼
+                  ┌──────────────────┐
+                  │   IntelliClean   │
+                  │                  │
+                  │ Data Cleaning    │
+                  │ Data Validation  │
+                  │ Data Preparation │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                Cleaned UPI Dataset
+                           │
+                           ▼
                 ┌─────────────────────┐
                 │ Azure Data Factory  │
-                │      (ADF)          │
+                │       (ADF)        │
                 └──────────┬──────────┘
                            │
                            ▼
@@ -66,10 +81,13 @@ The objective is to analyze UPI transaction data, identify potentially unusual t
                            │
                            ▼
                   ┌─────────────────┐
-                  │   Power BI      │
+                  │    Power BI     │
                   │                 │
                   │ Data Model      │
                   │ DAX Measures    │
                   │ Risk Analytics  │
                   │ Dashboards      │
                   └─────────────────┘
+
+```text
+                    
